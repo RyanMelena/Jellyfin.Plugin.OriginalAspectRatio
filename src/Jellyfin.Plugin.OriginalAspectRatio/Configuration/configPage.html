@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Original Aspect Ratio Plugin</title>
+</head>
+<body>
+    <div id="originalAspectRatioConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="originalAspectRatioConfigForm">
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="aspectRatios">Accepted aspect ratios</label>
+                        <input id="aspectRatios" name="aspectRatios" type="text" is="emby-input" />
+                        <div class="fieldDescription">Accepts a comma-separated list of accepted aspect ratios in colon (16:9) or decimal (1.85) format</div>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="apectRatioDetectChecksPerVideo">An Integer</label>
+                        <input id="apectRatioDetectChecksPerVideo" name="apectRatioDetectChecksPerVideo" type="number" is="emby-input" min="3" />
+                        <div class="fieldDescription">Number of aspect ratio detection checks per video <i>(default: 10)</i></div>
+                    </div>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input id="shouldOverrideExistingAspectRatio" name="shouldOverrideExistingAspectRatio" type="checkbox" is="emby-checkbox" />
+                            <span>Override existing original aspect ratios <i>(default: unchecked)</i></span>
+                        </label>
+                    </div>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input id="shouldAlwaysWriteOriginalAspectRatio" name="shouldAlwaysWriteOriginalAspectRatio" type="checkbox" is="emby-checkbox" />
+                            <span>Write original aspect ratio when it matches video aspect ratio <i>(default: unchecked)</i></span>
+                        </label>
+                    </div>
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var originalAspectRatioPlugin = {
+                pluginUniqueId: '1b77aa92-62b6-43d7-ae75-6ab2251c05a2'
+            };
+
+            document.querySelector('#originalAspectRatioConfigPage')
+                .addEventListener('pageshow', function() {
+                    Dashboard.showLoadingMsg();
+                    ApiClient.getPluginConfiguration(originalAspectRatioPlugin.pluginUniqueId).then(function (config) {
+                        document.querySelector('#aspectRatios').value = config.AspectRatios;
+                        document.querySelector('#apectRatioDetectChecksPerVideo').value = config.ApectRatioDetectChecksPerVideo;
+                        document.querySelector('#shouldAlwaysWriteOriginalAspectRatio').checked = config.ShouldAlwaysWriteOriginalAspectRatio;
+                        document.querySelector('#shouldOverrideExistingAspectRatio').checked = config.ShouldOverrideExistingAspectRatio;
+                        Dashboard.hideLoadingMsg();
+                    });
+                });
+
+            document.querySelector('#originalAspectRatioConfigForm')
+                .addEventListener('submit', function(e) {
+                Dashboard.showLoadingMsg();
+                    ApiClient.getPluginConfiguration(originalAspectRatioPlugin.pluginUniqueId).then(function (config) {
+                        config.AspectRatios = document.querySelector('#aspectRatios').value;
+                        config.ApectRatioDetectChecksPerVideo = document.querySelector('#apectRatioDetectChecksPerVideo').value;
+                        config.ShouldAlwaysWriteOriginalAspectRatio = document.querySelector('#shouldAlwaysWriteOriginalAspectRatio').checked;
+                        config.ShouldOverrideExistingAspectRatio = document.querySelector('shouldOverrideExistingAspectRatio').checked;
+                        ApiClient.updatePluginConfiguration(originalAspectRatioPlugin.pluginUniqueId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                });
+
+                e.preventDefault();
+                return false;
+            });
+        </script>
+    </div>
+</body>
+</html>

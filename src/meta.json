@@ -1,0 +1,12 @@
+{
+    "category": "Metadata",
+    "changelog": "Initial Release\n",
+    "description": "OriginalAspectRatio is a plugin that automatically analyzes videos and sets the Original Aspect Ratio metadata field.\n",
+    "guid": "1b77aa92-62b6-43d7-ae75-6ab2251c05a2",
+    "name": "OriginalAspectRatio",
+    "overview": "Analyze and set Original Aspect Ratio metadata on Jellyfin",
+    "owner": "RyanMelena",
+    "targetAbi": "10.10.0.0",
+    "timestamp": "2024-11-30T12:33:24Z",
+    "version": "1.0.0.0"
+}

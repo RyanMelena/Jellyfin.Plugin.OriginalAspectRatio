@@ -63,7 +63,7 @@
                         config.AspectRatios = document.querySelector('#aspectRatios').value;
                         config.ApectRatioDetectChecksPerVideo = document.querySelector('#apectRatioDetectChecksPerVideo').value;
                         config.ShouldAlwaysWriteOriginalAspectRatio = document.querySelector('#shouldAlwaysWriteOriginalAspectRatio').checked;
-                        config.ShouldOverrideExistingAspectRatio = document.querySelector('shouldOverrideExistingAspectRatio').checked;
+                        config.ShouldOverrideExistingAspectRatio = document.querySelector('#shouldOverrideExistingAspectRatio').checked;
                         ApiClient.updatePluginConfiguration(originalAspectRatioPlugin.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
                     });

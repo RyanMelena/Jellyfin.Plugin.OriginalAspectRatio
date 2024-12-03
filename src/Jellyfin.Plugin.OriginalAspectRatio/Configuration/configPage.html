@@ -15,7 +15,7 @@
                         <div class="fieldDescription">Accepts a comma-separated list of accepted aspect ratios in colon (16:9) or decimal (1.85) format</div>
                     </div>
                     <div class="inputContainer">
-                        <label class="inputLabel inputLabelUnfocused" for="apectRatioDetectChecksPerVideo">An Integer</label>
+                        <label class="inputLabel inputLabelUnfocused" for="apectRatioDetectChecksPerVideo">Detection iterations</label>
                         <input id="apectRatioDetectChecksPerVideo" name="apectRatioDetectChecksPerVideo" type="number" is="emby-input" min="3" />
                         <div class="fieldDescription">Number of aspect ratio detection checks per video <i>(default: 10)</i></div>
                     </div>
@@ -48,7 +48,7 @@
                 .addEventListener('pageshow', function() {
                     Dashboard.showLoadingMsg();
                     ApiClient.getPluginConfiguration(originalAspectRatioPlugin.pluginUniqueId).then(function (config) {
-                        document.querySelector('#aspectRatios').value = config.AspectRatios;
+                        document.querySelector('#aspectRatios').value = config.AcceptedAspectRatios;
                         document.querySelector('#apectRatioDetectChecksPerVideo').value = config.ApectRatioDetectChecksPerVideo;
                         document.querySelector('#shouldAlwaysWriteOriginalAspectRatio').checked = config.ShouldAlwaysWriteOriginalAspectRatio;
                         document.querySelector('#shouldOverrideExistingAspectRatio').checked = config.ShouldOverrideExistingAspectRatio;
@@ -58,9 +58,9 @@
 
             document.querySelector('#originalAspectRatioConfigForm')
                 .addEventListener('submit', function(e) {
-                Dashboard.showLoadingMsg();
+                    Dashboard.showLoadingMsg();
                     ApiClient.getPluginConfiguration(originalAspectRatioPlugin.pluginUniqueId).then(function (config) {
-                        config.AspectRatios = document.querySelector('#aspectRatios').value;
+                        config.AcceptedAspectRatios = document.querySelector('#aspectRatios').value;
                         config.ApectRatioDetectChecksPerVideo = document.querySelector('#apectRatioDetectChecksPerVideo').value;
                         config.ShouldAlwaysWriteOriginalAspectRatio = document.querySelector('#shouldAlwaysWriteOriginalAspectRatio').checked;
                         config.ShouldOverrideExistingAspectRatio = document.querySelector('#shouldOverrideExistingAspectRatio').checked;

@@ -7,6 +7,6 @@
     "overview": "Analyze and set Original Aspect Ratio metadata on Jellyfin",
     "owner": "RyanMelena",
     "targetAbi": "10.10.0.0",
-    "timestamp": "2024-11-30T12:33:24Z",
-    "version": "1.0.0.0"
+    "timestamp": "2024-12-02T18:40:00Z",
+    "version": "1.0.2.0"
 }
